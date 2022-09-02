@@ -35,6 +35,13 @@ include_directories(extern/glad/include)
 add_library(glad extern/glad/src/glad.c)
 
 # Targets
-add_executable(learn_opengl main.cpp default.cpp default.h)
+add_executable(
+        learn_opengl
+        main.cpp
+#        default.cpp
+#        default.h
+        getting-started/hello_window.cpp
+        getting-started/hello_window.h
+)
 target_link_libraries(learn_opengl OpenGL::GL glfw assimp glad)
 target_compile_definitions(learn_opengl PUBLIC GLFW_INCLUDE_NONE)
