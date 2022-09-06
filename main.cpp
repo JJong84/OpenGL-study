@@ -1,9 +1,8 @@
-#include "default.h"
-#include "getting-started/hello_window.h"
+#include "hello-window/base.h"
+using hello_window::render;
 
 int main()
 {
-//    int result = default_render();
-    int result = hello_world_render();
+    int result = render();
     return result;
 }

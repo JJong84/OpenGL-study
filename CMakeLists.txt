@@ -38,10 +38,20 @@ add_library(glad extern/glad/src/glad.c)
 add_executable(
         learn_opengl
         main.cpp
-#        default.cpp
-#        default.h
-        getting-started/hello_window.cpp
-        getting-started/hello_window.h
-)
+        common.cpp
+        common.h
+        default.cpp
+        default.h
+        hello-window/base.cpp
+        hello-window/base.h
+        hello-triangle/base.cpp
+        hello-triangle/base.h
+        hello-triangle/ex1.cpp
+        hello-triangle/ex1.h
+        hello-triangle/ex2.cpp
+        hello-triangle/ex2.h
+        hello-triangle/ex3.cpp
+        hello-triangle/ex3.h
+        common.cpp common.h hello-triangle/ex1.cpp)
 target_link_libraries(learn_opengl OpenGL::GL glfw assimp glad)
 target_compile_definitions(learn_opengl PUBLIC GLFW_INCLUDE_NONE)
