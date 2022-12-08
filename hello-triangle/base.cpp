@@ -3,7 +3,7 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-#include "../common.h"
+#include "../utils/common.h"
 
 namespace hello_triangle {
     void processInput(GLFWwindow *window)
