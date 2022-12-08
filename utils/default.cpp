@@ -28,11 +28,10 @@ void main() {
         init_glfw();
 
         // Make Window Object
-        GLFWwindow* window = window_setting();
+        GLFWwindow *window = window_setting();
 
         // Load the address of function pointers by glad
-        if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-        {
+        if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
             std::cout << "Failed to initialize GLAD" << std::endl;
             return -1;
         }
@@ -48,8 +47,7 @@ void main() {
         int success;
         char infoLog[512];
         glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-        if (!success)
-        {
+        if (!success) {
             glGetShaderInfoLog(vertexShader, 512, nullptr, infoLog);
             std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
         }
@@ -59,8 +57,7 @@ void main() {
         glCompileShader(fragmentShader);
         // check for shader compile errors
         glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-        if (!success)
-        {
+        if (!success) {
             glGetShaderInfoLog(fragmentShader, 512, nullptr, infoLog);
             std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
         }
@@ -81,10 +78,10 @@ void main() {
         // set up vertex data (and buffer(s)) and configure vertex attributes
         // ------------------------------------------------------------------
         float vertices[] = {
-                0.5f,  0.5f, 0.0f,  // top right
+                0.5f, 0.5f, 0.0f,  // top right
                 0.5f, -0.5f, 0.0f,  // bottom right
                 -0.5f, -0.5f, 0.0f,  // bottom left
-                -0.5f,  0.5f, 0.0f   // top left
+                -0.5f, 0.5f, 0.0f   // top left
         };
         unsigned int indices[] = {  // note that we start from 0!
                 0, 1, 3,  // first Triangle
@@ -103,7 +100,7 @@ void main() {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)nullptr);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) nullptr);
         glEnableVertexAttribArray(0);
 
         // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
@@ -122,8 +119,7 @@ void main() {
 
         // render loop
         // -----------
-        while (!glfwWindowShouldClose(window))
-        {
+        while (!glfwWindowShouldClose(window)) {
             // input
             // -----
             processInput(window);
@@ -135,7 +131,8 @@ void main() {
 
             // draw our first triangle
             glUseProgram(shaderProgram);
-            glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
+            glBindVertexArray(
+                    VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
             //glDrawArrays(GL_TRIANGLES, 0, 6);
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
             // glBindVertexArray(0); // no need to unbind it every time
@@ -161,8 +158,7 @@ void main() {
 
 // process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
 // ---------------------------------------------------------------------------------------------------------
-    void processInput(GLFWwindow *window)
-    {
+    void processInput(GLFWwindow *window) {
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
             glfwSetWindowShouldClose(window, true);
     }

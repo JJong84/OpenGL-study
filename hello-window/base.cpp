@@ -11,14 +11,13 @@ namespace hello_window {
     int render() {
         init_glfw();
 
-        GLFWwindow* window = window_setting();
+        GLFWwindow *window = window_setting();
         if (!window) {
             return -1;
         }
 
         // Load the address of function pointers by glad
-        if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-        {
+        if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
             std::cout << "Failed to initialize GLAD" << std::endl;
             return -1;
         }
@@ -26,8 +25,7 @@ namespace hello_window {
         // Render Loop
         // while loop until explicitly told to stop
         // until explicitly told to stop, the application will keep drawing iamges and handling user inputs
-        while (!glfwWindowShouldClose(window))
-        {
+        while (!glfwWindowShouldClose(window)) {
             // input
             processInput(window);
 
@@ -45,8 +43,7 @@ namespace hello_window {
         return 0;
     }
 
-    void processInput(GLFWwindow *window)
-    {
+    void processInput(GLFWwindow *window) {
         // Check if escape key is pressed
         // GLFW_RELEASE - not pressed
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)

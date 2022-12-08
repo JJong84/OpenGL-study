@@ -6,8 +6,7 @@
 #include "../utils/common.h"
 
 namespace hello_triangle_ex2 {
-    void processInput(GLFWwindow *window)
-    {
+    void processInput(GLFWwindow *window) {
         // Check if escape key is pressed
         // GLFW_RELEASE - not pressed
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -22,23 +21,23 @@ namespace hello_triangle_ex2 {
                                      "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
                                      "}\0";
 
-    const char *fragmentShaderSource ="#version 330 core\n"
-                                      "out vec4 FragColor;\n"
-                                      "void main()\n"
-                                      "{\n"
-                                      "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-                                      "}\0";
+    const char *fragmentShaderSource = "#version 330 core\n"
+                                       "out vec4 FragColor;\n"
+                                       "void main()\n"
+                                       "{\n"
+                                       "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+                                       "}\0";
 
     const float vertices1[] = {
-        -0.25f,  0.5f, 0.0f,
-        -0.5f, -0.5f, 0.0f,
-        0.0f, -0.5f, 0.0f,
+            -0.25f, 0.5f, 0.0f,
+            -0.5f, -0.5f, 0.0f,
+            0.0f, -0.5f, 0.0f,
     };
 
     const float vertices2[] = {
-        0.25f,  0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        0.0f, -0.5f, 0.0f,
+            0.25f, 0.5f, 0.0f,
+            0.5f, -0.5f, 0.0f,
+            0.0f, -0.5f, 0.0f,
     };
 
     unsigned int create_and_compile_vertex_shader() {
@@ -53,11 +52,10 @@ namespace hello_triangle_ex2 {
         glCompileShader(vertexShader);
 
         // Check if shader compiling was successful
-        int  success;
+        int success;
         char infoLog[512];
         glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-        if(!success)
-        {
+        if (!success) {
             glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
             std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
         }
@@ -87,10 +85,10 @@ namespace hello_triangle_ex2 {
         glLinkProgram(shaderProgram);
 
         // Check if shader compiling was successful
-        int  success;
+        int success;
         char infoLog[512];
         glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-        if(!success) {
+        if (!success) {
             glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
             std::cout << "ERROR::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
         }
@@ -104,14 +102,13 @@ namespace hello_triangle_ex2 {
     int render() {
         init_glfw();
 
-        GLFWwindow* window = window_setting();
+        GLFWwindow *window = window_setting();
         if (!window) {
             return -1;
         }
 
         // Load the address of function pointers by glad
-        if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-        {
+        if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
             std::cout << "Failed to initialize GLAD" << std::endl;
             return -1;
         }
@@ -130,20 +127,19 @@ namespace hello_triangle_ex2 {
         glBindVertexArray(VAO1);
         glBindBuffer(GL_ARRAY_BUFFER, VBO1);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices1), vertices1, GL_STATIC_DRAW);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)nullptr);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) nullptr);
         glEnableVertexAttribArray(0);
 
         glBindVertexArray(VAO2);
         glBindBuffer(GL_ARRAY_BUFFER, VBO2);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices2), vertices2, GL_STATIC_DRAW);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)nullptr);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) nullptr);
         glEnableVertexAttribArray(0);
 
         // Render Loop
         // while loop until explicitly told to stop
         // until explicitly told to stop, the application will keep drawing iamges and handling user inputs
-        while (!glfwWindowShouldClose(window))
-        {
+        while (!glfwWindowShouldClose(window)) {
             // input
             processInput(window);
 
