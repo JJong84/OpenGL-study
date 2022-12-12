@@ -42,6 +42,7 @@ add_executable(
         utils/common.h
         utils/default.cpp
         utils/default.h
+        utils/stb_image.h
         hello-window/base.cpp
         hello-window/base.h
         hello-triangle/base.cpp
@@ -58,7 +59,10 @@ add_executable(
         textures/base.h
         textures/ex2.cpp
         textures/ex2.h
-        utils/stb_image.h
+        textures/ex3.cpp
+        textures/ex3.h
+        textures/ex4.cpp
+        textures/ex4.h
 )
 target_link_libraries(learn_opengl OpenGL::GL glfw assimp glad)
 target_compile_definitions(learn_opengl PUBLIC GLFW_INCLUDE_NONE)

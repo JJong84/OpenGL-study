@@ -6,21 +6,34 @@
 #include "../utils/common.h"
 #include "../utils/stb_image.h"
 
-namespace textures_ex2 {
+namespace textures_ex4 {
+    float ratio = 0.5f;
+
     void processInput(GLFWwindow *window) {
         // Check if escape key is pressed
         // GLFW_RELEASE - not pressed
-        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
             // set WindowShouldClose property to true
             glfwSetWindowShouldClose(window, true);
+        } else if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
+            ratio += 0.01f;
+            if (ratio > 1.0f) {
+                ratio = 1.0f;
+            }
+        } else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+            ratio -= 0.01f;
+            if (ratio < 0.0f) {
+                ratio = 0.0f;
+            }
+        }
     }
 
     const float vertices[] = {
             // positions          // colors           // texture coords
-            0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 2.0f, 2.0f,   // top right
-            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 2.0f, 0.0f,   // bottom right
+            0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,   // top right
+            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,   // bottom right
             -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,   // bottom left
-            -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 2.0f    // top left
+            -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f    // top left
     };
     unsigned int indices[] = {
             0, 1, 3, // first triangle
@@ -41,7 +54,7 @@ namespace textures_ex2 {
             return -1;
         }
 
-        Shader shader("../textures/base_vs.glsl", "../textures/base_fs_ex1.glsl");
+        Shader shader("../textures/base_vs.glsl", "../textures/base_fs_ex4.glsl");
         unsigned int VBO, VAO, EBO;
 
         // Generate Array and Buffers
@@ -79,10 +92,10 @@ namespace textures_ex2 {
         glBindTexture(GL_TEXTURE_2D, texture1);
 
         // Set Wrapping / Filtering Options
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
         // Load Image for Texture
         int width, height, nrChannels;
@@ -108,8 +121,8 @@ namespace textures_ex2 {
         // Set Wrapping / Filtering Options
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 
         data = stbi_load("../images/awesomeface.png", &width, &height, &nrChannels, 0);
@@ -144,6 +157,8 @@ namespace textures_ex2 {
             glBindTexture(GL_TEXTURE_2D, texture1); // Bind texture to active texture unit
             glActiveTexture(GL_TEXTURE1); // Activate the texture unit
             glBindTexture(GL_TEXTURE_2D, texture2); // Bind texture to active texture unit
+
+            shader.setFloat("ratio", ratio);
 
             glBindVertexArray(VAO);
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

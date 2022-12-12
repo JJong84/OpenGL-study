@@ -4,7 +4,6 @@
 #include "GLFW/glfw3.h"
 
 #include "../utils/common.h"
-
 #include "../utils/stb_image.h"
 
 namespace textures {

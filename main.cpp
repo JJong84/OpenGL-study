@@ -1,6 +1,10 @@
-#include "textures/ex2.h"
+// To initialize stb_image
+#define STB_IMAGE_IMPLEMENTATION
+#include "utils/stb_image.h"
 
-using textures_ex2::render;
+#include "textures/ex4.h"
+
+using textures_ex4::render;
 
 int main() {
     int result = render();
