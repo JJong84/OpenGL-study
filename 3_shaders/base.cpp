@@ -40,7 +40,7 @@ namespace shaders {
             return -1;
         }
 
-        Shader shader("../shaders/base_vs.glsl", "../shaders/base_fs.glsl");
+        Shader shader("../3_shaders/base_vs.glsl", "../3_shaders/base_fs.glsl");
         unsigned int VBO, VAO, EBO;
 
         // Generate Array and Buffers

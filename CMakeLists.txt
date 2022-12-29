@@ -43,26 +43,32 @@ add_executable(
         utils/default.cpp
         utils/default.h
         utils/stb_image.h
-        hello-window/base.cpp
-        hello-window/base.h
-        hello-triangle/base.cpp
-        hello-triangle/base.h
-        hello-triangle/ex1.cpp
-        hello-triangle/ex1.h
-        hello-triangle/ex2.cpp
-        hello-triangle/ex2.h
-        hello-triangle/ex3.cpp
-        hello-triangle/ex3.h
-        shaders/base.cpp
-        shaders/base.h
-        textures/base.cpp
-        textures/base.h
-        textures/ex2.cpp
-        textures/ex2.h
-        textures/ex3.cpp
-        textures/ex3.h
-        textures/ex4.cpp
-        textures/ex4.h
+        1_hello-window/base.cpp
+        1_hello-window/base.h
+        2_hello-triangle/base.cpp
+        2_hello-triangle/base.h
+        2_hello-triangle/ex1.cpp
+        2_hello-triangle/ex1.h
+        2_hello-triangle/ex2.cpp
+        2_hello-triangle/ex2.h
+        2_hello-triangle/ex3.cpp
+        2_hello-triangle/ex3.h
+        3_shaders/base.cpp
+        3_shaders/base.h
+        4_textures/base.cpp
+        4_textures/base.h
+        4_textures/ex2.cpp
+        4_textures/ex2.h
+        4_textures/ex3.cpp
+        4_textures/ex3.h
+        4_textures/ex4.cpp
+        4_textures/ex4.h
+        transformations/base.cpp
+        transformations/base.h
+        transformations/ex1.cpp
+        transformations/ex1.h
+        transformations/ex2.cpp
+        transformations/ex2.h
 )
 target_link_libraries(learn_opengl OpenGL::GL glfw assimp glad)
 target_compile_definitions(learn_opengl PUBLIC GLFW_INCLUDE_NONE)

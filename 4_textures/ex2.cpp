@@ -6,7 +6,7 @@
 #include "../utils/common.h"
 #include "../utils/stb_image.h"
 
-namespace textures_ex3 {
+namespace textures_ex2 {
     void processInput(GLFWwindow *window) {
         // Check if escape key is pressed
         // GLFW_RELEASE - not pressed
@@ -17,10 +17,10 @@ namespace textures_ex3 {
 
     const float vertices[] = {
             // positions          // colors           // texture coords
-            0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,   // top right
-            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,   // bottom right
+            0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 2.0f, 2.0f,   // top right
+            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 2.0f, 0.0f,   // bottom right
             -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,   // bottom left
-            -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f    // top left
+            -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 2.0f    // top left
     };
     unsigned int indices[] = {
             0, 1, 3, // first triangle
@@ -41,7 +41,7 @@ namespace textures_ex3 {
             return -1;
         }
 
-        Shader shader("../textures/base_vs.glsl", "../textures/base_fs.glsl");
+        Shader shader("../4_textures/base_vs.glsl", "../4_textures/base_fs_ex1.glsl");
         unsigned int VBO, VAO, EBO;
 
         // Generate Array and Buffers
@@ -79,10 +79,10 @@ namespace textures_ex3 {
         glBindTexture(GL_TEXTURE_2D, texture1);
 
         // Set Wrapping / Filtering Options
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         // Load Image for Texture
         int width, height, nrChannels;
@@ -108,8 +108,8 @@ namespace textures_ex3 {
         // Set Wrapping / Filtering Options
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
         data = stbi_load("../images/awesomeface.png", &width, &height, &nrChannels, 0);

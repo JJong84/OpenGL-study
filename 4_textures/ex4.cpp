@@ -54,7 +54,7 @@ namespace textures_ex4 {
             return -1;
         }
 
-        Shader shader("../textures/base_vs.glsl", "../textures/base_fs_ex4.glsl");
+        Shader shader("../4_textures/base_vs.glsl", "../4_textures/base_fs_ex4.glsl");
         unsigned int VBO, VAO, EBO;
 
         // Generate Array and Buffers
