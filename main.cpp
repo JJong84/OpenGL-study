@@ -2,9 +2,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "utils/stb_image.h"
 
-#include "transformations/ex2.h"
+#include "6_coordinate-systems/base.h"
 
-using transformations_ex2::render;
+using coordinate_systems::render;
 
 int main() {
     int result = render();

@@ -63,12 +63,14 @@ add_executable(
         4_textures/ex3.h
         4_textures/ex4.cpp
         4_textures/ex4.h
-        transformations/base.cpp
-        transformations/base.h
-        transformations/ex1.cpp
-        transformations/ex1.h
-        transformations/ex2.cpp
-        transformations/ex2.h
+        5_transformations/base.cpp
+        5_transformations/base.h
+        5_transformations/ex1.cpp
+        5_transformations/ex1.h
+        5_transformations/ex2.cpp
+        5_transformations/ex2.h
+        6_coordinate-systems/base.cpp
+        6_coordinate-systems/base.h
 )
 target_link_libraries(learn_opengl OpenGL::GL glfw assimp glad)
 target_compile_definitions(learn_opengl PUBLIC GLFW_INCLUDE_NONE)

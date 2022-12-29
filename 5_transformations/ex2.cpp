@@ -10,7 +10,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-namespace transformations {
+namespace transformations_ex2 {
     void processInput(GLFWwindow *window) {
         // Check if escape key is pressed
         // GLFW_RELEASE - not pressed
@@ -45,7 +45,7 @@ namespace transformations {
             return -1;
         }
 
-        Shader shader("../transformations/base_vs.glsl", "../transformations/base_fs.glsl");
+        Shader shader("../5_transformations/base_vs.glsl", "../5_transformations/base_fs.glsl");
         unsigned int VBO, VAO, EBO;
 
         // Generate Array and Buffers
@@ -154,7 +154,17 @@ namespace transformations {
             // get matrix's uniform location and set matrix
             shader.setMat4("transform", transform);
 
-            glBindVertexArray(VAO);
+            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+            // create transformations
+            transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+            transform = glm::translate(transform, glm::vec3(-0.5f, 0.5f, 0.0f));
+            auto scale_factor = (float)(glm::sin(glfwGetTime()) + 1.5) * 0.5f;
+            transform = glm::scale(transform, glm::vec3(scale_factor, scale_factor, scale_factor));
+
+            // get matrix's uniform location and set matrix
+            shader.setMat4("transform", transform);
+
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
             // Swap color buffer used to render
