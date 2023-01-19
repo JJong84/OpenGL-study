@@ -43,6 +43,8 @@ add_executable(
         utils/default.cpp
         utils/default.h
         utils/stb_image.h
+        utils/camera.cpp
+        utils/camera.h
         1_hello-window/base.cpp
         1_hello-window/base.h
         2_hello-triangle/base.cpp
@@ -71,6 +73,10 @@ add_executable(
         5_transformations/ex2.h
         6_coordinate-systems/base.cpp
         6_coordinate-systems/base.h
+        7_camera/base.cpp
+        7_camera/base.h
+        7_camera/ex1.cpp
+        7_camera/ex1.h
 )
 target_link_libraries(learn_opengl OpenGL::GL glfw assimp glad)
 target_compile_definitions(learn_opengl PUBLIC GLFW_INCLUDE_NONE)

@@ -2,9 +2,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "utils/stb_image.h"
 
-#include "6_coordinate-systems/base.h"
+#include "7_camera/ex1.h"
 
-using coordinate_systems::render;
+using camera_ex1::render;
 
 int main() {
     int result = render();
