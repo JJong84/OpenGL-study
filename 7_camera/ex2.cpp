@@ -5,12 +5,11 @@
 
 #include "../utils/common.h"
 #include "../utils/stb_image.h"
-#include "../utils/camera.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-namespace camera {
+namespace camera_ex2 {
     const float vertices[] = {
             -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
             0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -85,27 +84,19 @@ namespace camera {
     float deltaTime = 0.0f;	// time between current frame and last frame
     float lastFrame = 0.0f;
 
-    Camera camera(cameraPos, cameraUp, yaw, pitch);
-
     void processInput(GLFWwindow *window) {
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
             glfwSetWindowShouldClose(window, true);
 
         float cameraSpeed = static_cast<float>(2.5 * deltaTime);
-        Camera_Movement cm;
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-            cm = CAMERA_MOVEMENT_FORWARD;
+            cameraPos += cameraSpeed * cameraFront;
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-            cm = CAMERA_MOVEMENT_BACKWARD;
+            cameraPos -= cameraSpeed * cameraFront;
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-            cm = CAMERA_MOVEMENT_LEFT;
+            cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-            cm = CAMERA_MOVEMENT_RIGHT;
-        if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-            cm = CAMERA_MOVEMENT_UP;
-        if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-            cm = CAMERA_MOVEMENT_DOWN;
-        camera.ProcessKeyboard(cm, deltaTime);
+            cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
     }
 
     void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
@@ -126,13 +117,32 @@ namespace camera {
         lastY = ypos;
 
         float sensitivity = 0.1f; // change this value to your liking
+        xoffset *= sensitivity;
+        yoffset *= sensitivity;
 
-        camera.ProcessMouseMovement(xoffset, yoffset, true);
+        yaw += xoffset;
+        pitch += yoffset;
+
+        // make sure that when pitch is out of bounds, screen doesn't get flipped
+        if (pitch > 89.0f)
+            pitch = 89.0f;
+        if (pitch < -89.0f)
+            pitch = -89.0f;
+
+        glm::vec3 front;
+        front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+        front.y = sin(glm::radians(pitch));
+        front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+        cameraFront = glm::normalize(front);
     }
 
     void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
     {
-        camera.ProcessMouseScroll(yoffset);
+        fov -= (float)yoffset;
+        if (fov < 1.0f)
+            fov = 1.0f;
+        if (fov > 45.0f)
+            fov = 45.0f;
     }
 
     const unsigned int SCR_WIDTH = 800;
@@ -263,7 +273,7 @@ namespace camera {
 
             // create transformations
             glm::mat4 projection = glm::perspective(glm::radians(fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-            glm::mat4 view = camera.GetViewMatrix();
+            glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
             // pass transformation matrices to the shader
             shader.setMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.

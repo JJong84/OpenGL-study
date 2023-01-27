@@ -12,10 +12,12 @@
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
 enum Camera_Movement {
-    FORWARD,
-    BACKWARD,
-    LEFT,
-    RIGHT,
+    CAMERA_MOVEMENT_FORWARD,
+    CAMERA_MOVEMENT_BACKWARD,
+    CAMERA_MOVEMENT_LEFT,
+    CAMERA_MOVEMENT_RIGHT,
+    CAMERA_MOVEMENT_UP,
+    CAMERA_MOVEMENT_DOWN,
 };
 
 // Default camera values

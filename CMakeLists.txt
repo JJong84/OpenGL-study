@@ -77,6 +77,8 @@ add_executable(
         7_camera/base.h
         7_camera/ex1.cpp
         7_camera/ex1.h
+        7_camera/ex2.cpp
+        7_camera/ex2.h
 )
 target_link_libraries(learn_opengl OpenGL::GL glfw assimp glad)
 target_compile_definitions(learn_opengl PUBLIC GLFW_INCLUDE_NONE)
